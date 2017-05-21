@@ -20,16 +20,38 @@ func New(hour, minute int) Clock {
 	// Negative hours are from {0, 0}
 	// 60 minutes = 1 hour (minutes roll over into hours)
 
+	// Parse the minute value
+	if minute > 0 && minute < 60 {
+
+	} else if minute >= 60 {
+		// It's greater than 60, roll over into X hours
+		hour += minute / 60
+	} else if minute < 0 && minute > -60 {
+		// It's negative щ(゜ロ゜щ)
+		// Subtract 1 hour
+		hour--
+		// Set minute to a postive value < 60
+		minute = 60 - minute
+	} else if minute <= -60 {
+		// It's negative щ(゜ロ゜щ)
+		// += because it'll be a negative number from the division
+		hour += minute / 60
+	}
+
+	// Parse the hour values
 	if hour > 0 {
 		// It's a number > 0, thus it's a normal hour
-		if 
+	} else if hour == 24 {
+		// It's midnight
+		hour = 0
+	} else if hour > 24 {
+		// It's more than 1 day, roll over logic here
 	} else {
-		// It's a negative hour, roll over backwards
+		// It's a negative hour! щ(゜ロ゜щ) Roll over backwards
 		hour = 24 - hour
 	}
 
 	// Set up the Clock object and return it
-
 	return Clock{
 		Hour:   hour,
 		Minute: minute,
